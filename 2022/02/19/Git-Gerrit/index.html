@@ -20,15 +20,15 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-  <meta name="description" content="[TOC] Git基本知识 首先推荐一个可视化动画练习网站  在熟悉Git前需要先了解三个基本概念：  工作区：可以理解为当前的工程文件夹 暂存区：暂时保存对工作区的修改，需要commit才能将暂存区的修改实现相对永久的保存 远程仓库：存储代码的远端Git服务器  安装Git略去安装过程，安装结束后需要指定本机用户名和邮箱 12$ git config --global user.name &amp;qu">
+  <meta name="description" content="[TOC] Git基本知识 首先推荐一个可视化动画练习网站  在熟悉Git前需要先了解三个基本概念：  工作区：可以理解为当前的工程文件夹 暂存区：暂时保存对工作区的修改，需要commit才能将暂存区的修改实现相对永久的保存 远程仓库：存储代码的远端Git服务器">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git &amp; Gerrit">
 <meta property="og:url" content="http://example.com/2022/02/19/Git-Gerrit/index.html">
 <meta property="og:site_name" content="Aoikiseki的博客">
-<meta property="og:description" content="[TOC] Git基本知识 首先推荐一个可视化动画练习网站  在熟悉Git前需要先了解三个基本概念：  工作区：可以理解为当前的工程文件夹 暂存区：暂时保存对工作区的修改，需要commit才能将暂存区的修改实现相对永久的保存 远程仓库：存储代码的远端Git服务器  安装Git略去安装过程，安装结束后需要指定本机用户名和邮箱 12$ git config --global user.name &amp;qu">
+<meta property="og:description" content="[TOC] Git基本知识 首先推荐一个可视化动画练习网站  在熟悉Git前需要先了解三个基本概念：  工作区：可以理解为当前的工程文件夹 暂存区：暂时保存对工作区的修改，需要commit才能将暂存区的修改实现相对永久的保存 远程仓库：存储代码的远端Git服务器">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-02-19T09:36:14.000Z">
-<meta property="article:modified_time" content="2022-02-19T10:02:11.356Z">
+<meta property="article:modified_time" content="2022-02-19T10:14:36.079Z">
 <meta property="article:author" content="Aoikiseki">
 <meta name="twitter:card" content="summary">
 
@@ -73,7 +73,7 @@
       <p class="site-title">Aoikiseki的博客</p>
       <i class="logo-line"></i>
     </a>
-      <p class="site-subtitle" itemprop="description">subtitle</p>
+      <p class="site-subtitle" itemprop="description">技术、生活、游戏</p>
   </div>
 
   <div class="site-nav-right">
@@ -127,7 +127,7 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
   <p class="site-author-name" itemprop="name">Aoikiseki</p>
-  <div class="site-description" itemprop="description">一段描述</div>
+  <div class="site-description" itemprop="description">初级iOS开发者一枚，现就职于猿辅导</div>
 </div>
 <div class="site-state-wrap site-overview-item animated">
   <nav class="site-state">
@@ -183,7 +183,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
       <meta itemprop="name" content="Aoikiseki">
-      <meta itemprop="description" content="一段描述">
+      <meta itemprop="description" content="初级iOS开发者一枚，现就职于猿辅导">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -203,7 +203,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-02-19 17:36:14 / 修改时间：18:02:11" itemprop="dateCreated datePublished" datetime="2022-02-19T17:36:14+08:00">2022-02-19</time>
+      <time title="创建时间：2022-02-19 17:36:14 / 修改时间：18:14:36" itemprop="dateCreated datePublished" datetime="2022-02-19T17:36:14+08:00">2022-02-19</time>
     </span>
 
   
@@ -241,6 +241,8 @@
 <li>暂存区：暂时保存对工作区的修改，需要commit才能将暂存区的修改实现相对永久的保存</li>
 <li>远程仓库：存储代码的远端Git服务器</li>
 </ol>
+<span id="more"></span>
+
 <h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>略去安装过程，安装结束后需要指定本机用户名和邮箱</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.name <span class="string">&quot;Your Name&quot;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git config --global user.email <span class="string">&quot;email@example.com&quot;</span></span></span><br></pre></td></tr></table></figure>
 
