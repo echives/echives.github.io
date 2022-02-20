@@ -20,22 +20,24 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-  <meta name="description" content="创建存储空间进入七牛云控制台，选择对象存储（OSS），新建空间（Bucket）  注意访问控制要选择公开">
+  <meta name="description" content="七牛云设置创建存储空间进入七牛云控制台，选择对象存储（OSS），新建空间（Bucket）  注意访问控制要选择公开">
 <meta property="og:type" content="article">
 <meta property="og:title" content="七牛云+Picgo+Typora图床设置">
 <meta property="og:url" content="http://example.com/2022/02/20/%E4%B8%83%E7%89%9B%E4%BA%91-Picgo-Typora%E5%9B%BE%E5%BA%8A%E8%AE%BE%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Aoikiseki的博客">
-<meta property="og:description" content="创建存储空间进入七牛云控制台，选择对象存储（OSS），新建空间（Bucket）  注意访问控制要选择公开">
+<meta property="og:description" content="七牛云设置创建存储空间进入七牛云控制台，选择对象存储（OSS），新建空间（Bucket）  注意访问控制要选择公开">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220220759064.png">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220220903752.png">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220221318789.png">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220221854390.png">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220222216628.png">
+<meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220221005401860.png">
+<meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220221005610977.png">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220223505234.png">
 <meta property="og:image" content="http://img.mehrunes.com/PicGo/image-20220220223815805.png">
 <meta property="article:published_time" content="2022-02-20T14:51:05.000Z">
-<meta property="article:modified_time" content="2022-02-20T16:43:42.043Z">
+<meta property="article:modified_time" content="2022-02-20T16:58:27.794Z">
 <meta property="article:author" content="Aoikiseki">
 <meta property="article:tag" content="博客搭建">
 <meta name="twitter:card" content="summary">
@@ -132,7 +134,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.</span> <span class="nav-text">创建存储空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AECDN%E5%9F%9F%E5%90%8D"><span class="nav-number">2.</span> <span class="nav-text">设置CDN域名</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%83%E7%89%9B%E4%BA%91%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">七牛云设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CNAME%E8%AE%BE%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">CNAME设置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%9F%9F%E5%90%8D"><span class="nav-number">3.</span> <span class="nav-text">验证域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEPicgo"><span class="nav-number">4.</span> <span class="nav-text">设置Picgo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AETypora"><span class="nav-number">5.</span> <span class="nav-text">设置Typora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">6.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E7%89%9B%E4%BA%91%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">七牛云设置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E5%82%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">1.1.</span> <span class="nav-text">创建存储空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AECDN%E5%9F%9F%E5%90%8D"><span class="nav-number">1.2.</span> <span class="nav-text">设置CDN域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CNAME%E8%AE%BE%E7%BD%AE"><span class="nav-number">1.3.</span> <span class="nav-text">CNAME设置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%9F%9F%E5%90%8D"><span class="nav-number">1.4.</span> <span class="nav-text">验证域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%B3%E8%AF%B7https%E8%AF%81%E4%B9%A6"><span class="nav-number">1.5.</span> <span class="nav-text">申请https证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AEPicgo"><span class="nav-number">2.</span> <span class="nav-text">设置Picgo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AETypora"><span class="nav-number">3.</span> <span class="nav-text">设置Typora</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -233,7 +235,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-02-21 00:43:42" itemprop="dateModified" datetime="2022-02-21T00:43:42+08:00">2022-02-21</time>
+      <time title="修改时间：2022-02-21 00:58:27" itemprop="dateModified" datetime="2022-02-21T00:58:27+08:00">2022-02-21</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -252,7 +254,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>543</span>
+      <span>651</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -270,13 +272,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="创建存储空间"><a href="#创建存储空间" class="headerlink" title="创建存储空间"></a>创建存储空间</h2><p>进入七牛云控制台，选择对象存储（OSS），新建空间（Bucket）</p>
+        <h2 id="七牛云设置"><a href="#七牛云设置" class="headerlink" title="七牛云设置"></a>七牛云设置</h2><h3 id="创建存储空间"><a href="#创建存储空间" class="headerlink" title="创建存储空间"></a>创建存储空间</h3><p>进入七牛云控制台，选择对象存储（OSS），新建空间（Bucket）</p>
 <p><img src="http://img.mehrunes.com/PicGo/image-20220220220759064.png"></p>
 <p>注意访问控制要选择公开</p>
 <span id="more"></span>
 
 <p><img src="http://img.mehrunes.com/PicGo/image-20220220220903752.png"></p>
-<h2 id="设置CDN域名"><a href="#设置CDN域名" class="headerlink" title="设置CDN域名"></a>设置CDN域名</h2><h3 id="七牛云设置"><a href="#七牛云设置" class="headerlink" title="七牛云设置"></a>七牛云设置</h3><p>创建好以后七牛云会给测试CDN域名，但是期限只有30天，需要设置自己的已备案域名。进入自定义CDN域名页面，输入加速域名，注意是二级域名。例如，自己申请的一级域名为qiniu.com，则CDN域名可以设置为cdn.qiniu.com。</p>
+<h3 id="设置CDN域名"><a href="#设置CDN域名" class="headerlink" title="设置CDN域名"></a>设置CDN域名</h3><p>创建好以后七牛云会给测试CDN域名，但是期限只有30天，需要设置自己的已备案域名。进入自定义CDN域名页面，输入加速域名，注意是二级域名。例如，自己申请的一级域名为qiniu.com，则CDN域名可以设置为cdn.qiniu.com。</p>
 <p><img src="http://img.mehrunes.com/PicGo/image-20220220221318789.png"></p>
 <p>配置好点击确认即可，然后可以得到域名的CNAME，我们需要凭借CNAME去域名服务商设置域名解析。比如我的域名是在阿里云申请的，就需要去阿里云下面设置域名解析。</p>
 <h3 id="CNAME设置"><a href="#CNAME设置" class="headerlink" title="CNAME设置"></a>CNAME设置</h3><p>进入阿里云，找到域名解析，点击添加记录</p>
@@ -290,9 +292,14 @@
 <li>TTL：默认</li>
 </ul>
 <p>填写好点击确认即可</p>
-<h2 id="验证域名"><a href="#验证域名" class="headerlink" title="验证域名"></a>验证域名</h2><p>首先回到七牛云，稍等20秒可以看到域名状态更新为成功</p>
+<h3 id="验证域名"><a href="#验证域名" class="headerlink" title="验证域名"></a>验证域名</h3><p>首先回到七牛云，稍等20秒可以看到域名状态更新为成功</p>
 <p><img src="http://img.mehrunes.com/PicGo/image-20220220222216628.png"></p>
 <p>然后打开终端<code>dig</code>一下自己的cdn加速域名，ANSWER SECTION中可以看到自己设置的CNAME，输入<code>ping</code>一下cdn加速域名，成功后即可正常访问，阿里云设置好以后可能要多等一会才能ping成功。</p>
+<h3 id="申请https证书"><a href="#申请https证书" class="headerlink" title="申请https证书"></a>申请https证书</h3><p>目前很多浏览器已经禁用http，为了保证外链访问正常，最好使用https证书。七牛云提供免费的https证书，期限一年，到期后重新申请即可。</p>
+<p>在CDN域名页面找到https部分</p>
+<p><img src="http://img.mehrunes.com/PicGo/image-20220221005401860.png" alt="image-20220221005401860"></p>
+<p>选择免费证书并确认，完成</p>
+<p><img src="http://img.mehrunes.com/PicGo/image-20220221005610977.png" alt="image-20220221005610977"></p>
 <h2 id="设置Picgo"><a href="#设置Picgo" class="headerlink" title="设置Picgo"></a>设置Picgo</h2><p><img src="http://img.mehrunes.com/PicGo/image-20220220223505234.png"></p>
 <h2 id="设置Typora"><a href="#设置Typora" class="headerlink" title="设置Typora"></a>设置Typora</h2><p><img src="http://img.mehrunes.com/PicGo/image-20220220223815805.png"></p>
 <h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul>
