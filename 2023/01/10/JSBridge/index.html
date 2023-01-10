@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.10.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+  <meta name="description" content="客户端的动态化是大势所趋，我有幸能在一年前成为项目大前端的一员，虽然这一年来绝大多数时间都在写简单的业务页面，但是能从另一个角度审视app这种感觉还是很奇妙的。初入大前端有因为不熟悉上线流程闹出笑话，也有兼容不同机型（尤其是Android！）加班到心力交瘁的时候，今后还要继续加油。  JSBridgeJSBridge是实现客户端和端内h5、rn页面相互调用、数据传输的重要方式，是实现动态化的不可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSBridge">
+<meta property="og:url" content="http://example.com/2023/01/10/JSBridge/index.html">
+<meta property="og:site_name" content="echives的博客">
+<meta property="og:description" content="客户端的动态化是大势所趋，我有幸能在一年前成为项目大前端的一员，虽然这一年来绝大多数时间都在写简单的业务页面，但是能从另一个角度审视app这种感觉还是很奇妙的。初入大前端有因为不熟悉上线流程闹出笑话，也有兼容不同机型（尤其是Android！）加班到心力交瘁的时候，今后还要继续加油。  JSBridgeJSBridge是实现客户端和端内h5、rn页面相互调用、数据传输的重要方式，是实现动态化的不可">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-10T15:29:39.000Z">
+<meta property="article:modified_time" content="2023-01-10T16:17:59.253Z">
+<meta property="article:author" content="echives">
+<meta property="article:tag" content="大前端">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2023/01/10/JSBridge/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/01/10/JSBridge/","path":"2023/01/10/JSBridge/","title":"JSBridge"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JSBridge | echives的博客</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">echives的博客</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">技术、生活、游戏</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-tech"><a href="/categories/%E6%8A%80%E6%9C%AF/" rel="section"><i class="fa fa-code fa-fw"></i>技术</a></li>
+        <li class="menu-item menu-item-life"><a href="/categories/%E7%94%9F%E6%B4%BB/" rel="section"><i class="fa fa-mug-hot fa-fw"></i>生活</a></li>
+        <li class="menu-item menu-item-game"><a href="/categories/%E6%B8%B8%E6%88%8F/" rel="section"><i class="fa fa-gamepad fa-fw"></i>游戏</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JSBridge"><span class="nav-number">1.</span> <span class="nav-text">JSBridge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS%E9%83%A8%E5%88%86"><span class="nav-number">1.1.</span> <span class="nav-text">iOS部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Navigtion"><span class="nav-number">1.1.1.</span> <span class="nav-text">Navigtion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MessageHandler"><span class="nav-number">1.1.2.</span> <span class="nav-text">MessageHandler</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E7%AB%AF%E9%83%A8%E5%88%86"><span class="nav-number">1.2.</span> <span class="nav-text">前端部分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%9B%9E%E8%B0%83"><span class="nav-number">1.2.1.</span> <span class="nav-text">回调</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Demo"><span class="nav-number">1.3.</span> <span class="nav-text">Demo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%AC%E5%8F%B8%E9%A1%B9%E7%9B%AE%E7%9A%84jsBridge%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.4.</span> <span class="nav-text">公司项目的jsBridge设计</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="echives"
+      src="/uploads/avatar.jpg">
+  <p class="site-author-name" itemprop="name">echives</p>
+  <div class="site-description" itemprop="description">初级iOS开发者一枚</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Aoikiseki" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Aoikiseki" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+        <div class="back-to-top animated" role="button" aria-label="返回顶部">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/10/JSBridge/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+      <meta itemprop="name" content="echives">
+      <meta itemprop="description" content="初级iOS开发者一枚">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="echives的博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JSBridge
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-10 23:29:39" itemprop="dateCreated datePublished" datetime="2023-01-10T23:29:39+08:00">2023-01-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-11 00:17:59" itemprop="dateModified" datetime="2023-01-11T00:17:59+08:00">2023-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <blockquote>
+<p>客户端的动态化是大势所趋，我有幸能在一年前成为项目大前端的一员，虽然这一年来绝大多数时间都在写简单的业务页面，但是能从另一个角度审视app这种感觉还是很奇妙的。初入大前端有因为不熟悉上线流程闹出笑话，也有兼容不同机型（尤其是Android！）加班到心力交瘁的时候，今后还要继续加油。</p>
+</blockquote>
+<h2 id="JSBridge"><a href="#JSBridge" class="headerlink" title="JSBridge"></a>JSBridge</h2><p>JSBridge是实现客户端和端内h5、rn页面相互调用、数据传输的重要方式，是实现动态化的不可缺少的一部分，这里对native（iOS）和web的bridge方式进行一个小归纳。</p>
+<span id="more"></span>
+
+<h3 id="iOS部分"><a href="#iOS部分" class="headerlink" title="iOS部分"></a>iOS部分</h3><p>iOS有两种方式接收来自前端的调用：Navigation和MessageHandler。</p>
+<h4 id="Navigtion"><a href="#Navigtion" class="headerlink" title="Navigtion"></a>Navigtion</h4><p>navigation方式来自前端使用特殊url进行导航，客户端通过WKNavigationDelegate进行拦截，然后分类处理。</p>
+<p>前端最常见的导航有</p>
+<ul>
+<li><code>&lt;a&gt;</code></li>
+<li><code>location.href</code> </li>
+<li><code>iframe</code>：用于展示内嵌页面</li>
+</ul>
+<p>规范的URL格式为：<code>&lt;scheme&gt;://&lt;host&gt;:&lt;port&gt;/&lt;path&gt;;&lt;params&gt;?&lt;query&gt;#&lt;frag&gt;</code></p>
+<p>为了实现前端调用客户端，一般会从scheme开始做文章，比如把http&#x2F;https换成jsbridge来表明这是一个前端bridge调用，然后在query部分向客户端传递参数</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">func</span> <span class="title function_">webView</span>(<span class="keyword">_</span> <span class="params">webView</span>: <span class="type">WKWebView</span>, <span class="params">decidePolicyFor</span> <span class="params">navigationAction</span>: <span class="type">WKNavigationAction</span>, <span class="params">decisionHandler</span>: <span class="keyword">@escaping</span> (<span class="type">WKNavigationActionPolicy</span>) -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> url <span class="operator">=</span> navigationAction.request.url, url.scheme <span class="operator">==</span> <span class="string">&quot;jsbridge&quot;</span> &#123;</span><br><span class="line"> 		<span class="comment">// 解析url，并调用bridgeHandler       </span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 其他的非bridgeUrl正常跳转</span></span><br><span class="line">        decisionHandler(.allow)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="MessageHandler"><a href="#MessageHandler" class="headerlink" title="MessageHandler"></a>MessageHandler</h4><p>messageHandler是在iOS8跟随WKWebView一起出现的bridge方式，客户端需要预先注入messageHandler，前端通过window向客户端发送message。涉及到以下几个类：</p>
+<ul>
+<li>WKScriptMessage：消息实体。包含name和body两个属性，其中body部分存放前端传递的参数</li>
+<li>WKScriptMessageHandler：协议类型，负责处理前端传来的message</li>
+<li>WKUserContentController：用来向webview注入message对应的handler</li>
+</ul>
+<p>具体的使用方式为：</p>
+<ol>
+<li><strong>在创建webview之前</strong>，创建一个WKWebViewConfiguration</li>
+<li>获取到configuration对象的userContentController对象，调用其 <code>add(_:name:)</code> 方法注入支持的WKScriptMessageHandler</li>
+<li>最后设置好configuration完成webview的创建</li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> configuration <span class="operator">=</span> <span class="type">WKWebViewConfiguration</span>()</span><br><span class="line">configuration.userContentController.add(<span class="type">TestMessageHandler</span>(), name: <span class="string">&quot;test&quot;</span>)</span><br><span class="line">webView <span class="operator">=</span> <span class="type">WKWebView</span>(frame: .zero, configuration: configuration)</span><br><span class="line">webView.load(<span class="type">URLRequest</span>(url: <span class="type">URL</span>(string: <span class="string">&quot;http://localhost:5173/&quot;</span>)<span class="operator">!</span>))</span><br></pre></td></tr></table></figure>
+
+<h3 id="前端部分"><a href="#前端部分" class="headerlink" title="前端部分"></a>前端部分</h3><p>苹果在 <code>WKUserContentController.add(_:name:)</code> 文档中详细描述了前端如何获取注册的messageHandler，以及如何向handler传递数据</p>
+<blockquote>
+<p>The user content controller uses this parameter to define a JavaScript function for your message handler in the page’s main content world. The name of this function is <code>window.webkit.messageHandlers.</code><em><name></em><code>.postMessage(&lt;messageBody&gt;)</code>, where <em><name></em> corresponds to the value of this parameter. For example, if you specify the string <code>MyFunction</code>, the user content controller defines the <code>window.webkit.messageHandlers.MyFunction.postMessage()</code> function in JavaScript.</p>
+</blockquote>
+<p>iOS中的messageHandler会被注入到全局对象，在webview中这个全局对象就是window，因此核心代码就是访问window中指定名称的messageHandler，调用其postMessage方法传递参数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> globalScope = <span class="variable language_">window</span> <span class="keyword">as</span> any</span><br><span class="line"><span class="keyword">const</span> messageHandler = globalScope.<span class="property">webkit</span> &amp;&amp; globalScope.<span class="property">webkit</span>.<span class="property">messageHandlers</span></span><br><span class="line"><span class="keyword">if</span> (messageHandler) &#123;</span><br><span class="line">    <span class="keyword">if</span> (messageHandler[bridgeName]) &#123;</span><br><span class="line">        <span class="comment">// 向名为&#x27;bridgeName&#x27;的message发送params参数</span></span><br><span class="line">        messageHandler[bridgeName].<span class="title function_">postMessage</span>(params) </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h4><p>回调在JSBridge中是非常重要的，比如：</p>
+<ul>
+<li>前端调用客户端后，需要接收来自客户端的回传数据</li>
+<li>甚至日常开发中很多客户端主动调用前端的场景，也会设计成让前端ready后先给客户端发送消息，客户端通过消息中的参数拿到回调方法以后再主动调用前端</li>
+</ul>
+<p>在web-&gt;native这一步，需要向window注册一个callback方法供native调用，传递的参数需要携带callback的名字。在设计时有一些需要注意：</p>
+<ul>
+<li>两端需要提前协定好传参的方式，比如是否用jsonString，是否有base64encode等等</li>
+<li>前端需要考虑到回调的时效性，有效时间内客户端未调用则前端的Promise直接reject并移除回调。</li>
+</ul>
+<h3 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h3><p>下面是一个演示使用messageHandler进行bridge的demo</p>
+<ul>
+<li>demo页面：<a target="_blank" rel="noopener" href="https://echives.github.io/learn_vue/">https://echives.github.io/learn_vue/</a><ul>
+<li>页面的Vue项目：<a target="_blank" rel="noopener" href="https://github.com/echives/learn_vue">https://github.com/echives/learn_vue</a></li>
+</ul>
+</li>
+<li>demo app：<a target="_blank" rel="noopener" href="https://github.com/echives/SwiftUI-Voyager">https://github.com/echives/SwiftUI-Voyager</a></li>
+</ul>
+<p>app代码很少，也可以自己创建一个app试一下</p>
+<p>demo提供几个message：</p>
+<ol>
+<li>helloworld：无其他参数，客户端查看是否收到消息</li>
+<li>calculateAddition：前端随机生成两个整数，客户端需要将两数之和计算出来回调前端<br>参数有 <code>numberA: Int</code> 、 <code>numberB: Int</code> 、<code>callback: String</code></li>
+<li>calculationSubtraction：前端随机生成两个整数，客户端需要将两数之差计算出来回调前端。<br>参数同上，<strong>接口回调有timeout&#x3D;2000ms的限制</strong>，客户端可以asyncAfter来测试timeout功能是否正常</li>
+</ol>
+<p>客户端拿到callback后需要根据以下格式拼接js方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;callback&#125;(&#123; <span class="attr">err</span>: $&#123;errorNum&#125;, <span class="attr">data</span>: $&#123;dataJsonString&#125; &#125;)</span><br><span class="line"><span class="comment">//　例：calculateAddition_1673179118555(&#123; err: 0, data: &#x27;&#123;&quot;result&quot;:15961&#125;&#x27; &#125;)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>err：这里只是简单处理，没有错误传0，有错误传1</li>
+<li>dataJsonString：客户端将回调参数写入字典，然后序列化为jsonString</li>
+</ul>
+<h3 id="公司项目的jsBridge设计"><a href="#公司项目的jsBridge设计" class="headerlink" title="公司项目的jsBridge设计"></a>公司项目的jsBridge设计</h3><p>iOS和web交互的jsBridge原理就上面那些东西，下面是我所在项目的jsBridge设计。</p>
+<pre><code class="highlight mermaid">classDiagram
+
+class WebContentView &#123;
+	init(cmdHandlers: [CommandHandlerProtocol])
+	webview: WKWebView
+&#125;
+
+class WKScriptMessageHandler 
+class CommandHandlerProtocol &#123;
+	webview: WKWebView
+&#125;
+
+WKScriptMessageHandler &lt;|.. CommandHandlerProtocol
+
+class CommonCommandHandler &#123;
+  handle()
+&#125;
+class CustomCommandHandler &#123;
+  cmdHandlers: [String: actionBlock]
+  handle()
+&#125;
+class ModuleACommandHandler &#123;
+	&lt;&lt;业务A handler&gt;&gt;
+&#125;
+class ModuleBCommandHandler &#123;
+	&lt;&lt;业务B handler&gt;&gt;
+&#125;
+
+CommandHandlerProtocol &lt;|.. CommonCommandHandler
+CommandHandlerProtocol &lt;|.. CustomCommandHandler
+CustomCommandHandler &lt;|-- ModuleACommandHandler
+CustomCommandHandler &lt;|-- ModuleBCommandHandler
+WebContentView --&gt; CommandHandlerProtocol</code></pre>
+
+<p>CommonCommandHandler是每个WebView都要注入的基础bridge，而CustomCommandHandler是业务bridge。这种设计将每个业务或者每个功能的一系列WKMessageHandlers聚合在一起方便复用，比如支付功能在app的很多地方都会调用，那么抽取一个IAPCommandHandler就会很方便。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%A4%A7%E5%89%8D%E7%AB%AF/" rel="tag"># 大前端</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/02/21/HelloWorld-%E7%94%9F%E6%B4%BB/" rel="prev" title="HelloWorld: 生活">
+                  <i class="fa fa-chevron-left"></i> HelloWorld: 生活
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">echives</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">9k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">8 分钟</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script class="next-config" data-name="mermaid" type="application/json">{"enable":true,"theme":{"light":"default","dark":"dark"},"js":{"url":"https://cdn.jsdelivr.net/npm/mermaid@8.13.10/dist/mermaid.min.js","integrity":"sha256-CmZCFVnvol9YL23PfjDflGY5nJwE+Mf/JN+8v+tD/34="}}</script>
+  <script src="/js/third-party/tags/mermaid.js"></script>
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
